@@ -15,6 +15,8 @@ namespace NickPerformanceMod
     public class Plugin : BaseUnityPlugin
     {
         internal static Plugin Instance;
+        public static bool WaitingForUpdate = false;
+
         private void Awake()
         {
             Logger.LogDebug($"Plugin {PluginInfo.PLUGIN_NAME} is loaded!");

@@ -56,10 +56,9 @@ namespace NickPerformanceMod.Patches
 
             foreach (string objName in StageConfigLoader.stageConfigDict[stageName].ObjectsToDisable)
             {
-                string tempObjName = objName;
                 if (objName.StartsWith(basePath))
                 {
-                    tempObjName = objName.Substring(basePath.Length);
+                    string tempObjName = objName.Substring(basePath.Length);
 
                     Transform t = stageObj.transform.Find(tempObjName);
 

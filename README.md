@@ -17,6 +17,8 @@ You can edit these files in a text editor to change which objects get disabled.
 
 If you want to find the names of the objects to in the scene, you can use the [Runtime Unity Editor](https://github.com/ManlyMarco/RuntimeUnityEditor).
 
+Restart the game to load the updated files.
+
 ## 🔧 Developing
 
 This project requires `Newtonsoft.Json.dll`

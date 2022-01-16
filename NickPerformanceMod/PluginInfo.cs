@@ -8,6 +8,6 @@ namespace NickPerformanceMod
     {
         public const string PLUGIN_GUID = "megalon.nick_performance_mod";
         public const string PLUGIN_NAME = "Nick Performance Mod";
-        public const string PLUGIN_VERSION = "0.1.0";
+        public const string PLUGIN_VERSION = "0.2.0";
     }
 }

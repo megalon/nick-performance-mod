@@ -11,7 +11,9 @@ namespace NickPerformanceMod.Patches
     [HarmonyPatch(typeof(GameInstance), "DoFrame")]
     class GameInstance_DoFrame
     {
-        static void Postfix(ref GameAgent[] ___updagents, ref GameInstance __instance, ref int ___agentsAdded)
+        static void Postfix(ref GameAgent[] ___updagents, ref GameInstance __instance, ref int ___agentsAdded) => GameInstance_DoFrame.UpdateLogic(ref ___updagents, ref __instance, ref ___agentsAdded);
+
+        public static void UpdateLogic(ref GameAgent[] ___updagents, ref GameInstance __instance, ref int ___agentsAdded)
         {
             if (Plugin.WaitingForUpdate)
             {
@@ -95,5 +97,12 @@ namespace NickPerformanceMod.Patches
                 }
             }
         }
+    }
+
+
+    [HarmonyPatch(typeof(GameInstance), "OnlineDoFrameStoreFXDT")]
+    class OnlineUpdatePatch
+    {
+        static void Postfix(ref GameAgent[] ___updagents, ref GameInstance __instance, ref int ___agentsAdded) => GameInstance_DoFrame.UpdateLogic(ref ___updagents, ref __instance, ref ___agentsAdded);
     }
 }

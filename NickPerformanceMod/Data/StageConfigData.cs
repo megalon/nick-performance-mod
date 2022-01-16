@@ -8,5 +8,6 @@ namespace NickPerformanceMod.Data
     {
         public string StageId;
         public string[] ObjectsToDisable;
+        public string[] ObjectsToEnable;
     }
 }

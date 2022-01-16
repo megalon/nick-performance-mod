@@ -34,11 +34,11 @@ namespace NickPerformanceMod.Patches
                     return;
                 }
 
-                DisableObjectsForStage(stageObj);
+                ModifyStage(stageObj);
             }
         }
 
-        private static void DisableObjectsForStage(GameObject stageObj)
+        private static void ModifyStage(GameObject stageObj)
         {
             string stageName = stageObj.name.Contains("(Clone)")
                 ? stageObj.name.Substring(0, stageObj.name.IndexOf("(Clone)"))
@@ -50,11 +50,33 @@ namespace NickPerformanceMod.Patches
                 return;
             }
 
-            Plugin.LogInfo("Disabling objects...");
+            EnableObjectsInStage(stageObj, stageName);
+            DisableObjectsInStage(stageObj, stageName);
+        }
+
+        private static void EnableObjectsInStage(GameObject stageObj, string stageName)
+        {
+            Plugin.LogInfo("Enabling gameobjects...");
+            EnableOrDisableObjectsInStage(stageObj, StageConfigLoader.stageConfigDict[stageName].ObjectsToEnable, true);
+        }
+
+        private static void DisableObjectsInStage(GameObject stageObj, string stageName)
+        {
+            Plugin.LogInfo("Disabling gameobjects...");
+            EnableOrDisableObjectsInStage(stageObj, StageConfigLoader.stageConfigDict[stageName].ObjectsToDisable, false);
+        }
+
+        private static void EnableOrDisableObjectsInStage(GameObject stageObj, string[] objects, bool enabled)
+        {
+            if (objects == null || objects.Length == 0)
+            {
+                Plugin.LogInfo($"No objects to {(enabled ? "enable" : "disable")} in config");
+                return;
+            }
 
             string basePath = $"game instance(Clone)/{stageObj.name}/";
 
-            foreach (string objName in StageConfigLoader.stageConfigDict[stageName].ObjectsToDisable)
+            foreach (string objName in objects)
             {
                 if (objName.StartsWith(basePath))
                 {
@@ -68,8 +90,8 @@ namespace NickPerformanceMod.Patches
                         continue;
                     }
 
-                    Plugin.LogDebug($"Disabling gameobject \"{objName}\"");
-                    t.gameObject.SetActive(false);
+                    Plugin.LogDebug($"{(enabled ? "Enabling" : "Disabling")} gameobject \"{objName}\"");
+                    t.gameObject.SetActive(enabled);
                 }
             }
         }
